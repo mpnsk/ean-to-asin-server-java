@@ -62,7 +62,7 @@ public class JavaCodeSnippet {
         params.put("AssociateTag", ASSOCIATE_TAG);
         params.put("ItemId", ean);
         params.put("IdType", "EAN");
-        params.put("ResponseGroup", "Images,ItemAttributes,Offers");
+        params.put("ResponseGroup", "ItemAttributes");
         params.put("SearchIndex", "All");
 
         requestUrl = helper.sign(params);
