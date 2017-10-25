@@ -1,6 +1,9 @@
 package com.paunoski.eantoasinserverjava;
 
+import com.google.gson.Gson;
 import com.paunoski.eantoasinserverjava.xml.ItemLookupResponse;
+import org.json.JSONObject;
+import org.json.XML;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -32,9 +35,17 @@ public class EanToAsinServerJavaApplication implements CommandLineRunner {
 
 
         RestTemplate restTemplate = new RestTemplate();
-        ItemLookupResponse object = restTemplate.getForObject(url, ItemLookupResponse.class);
-        System.out.println(object);
+        String object = restTemplate.getForObject(url, String.class);
+        JSONObject jsonObject = XML.toJSONObject(object);
+        String string = jsonObject.toString(4);
+        System.out.println(string);
 
+        Gson gson = new Gson();
+        ItemLookupResponse itemLookupResponse = gson.fromJson(string, ItemLookupResponse.class);
+        System.out.println(itemLookupResponse);
+
+
+        /*
         JAXBContext jaxbContext = JAXBContext.newInstance(ItemLookupResponse.class);
         jaxbContext.generateSchema(new SchemaOutputResolver() {
 
@@ -49,5 +60,6 @@ public class EanToAsinServerJavaApplication implements CommandLineRunner {
                 return streamResult;
             }
         });
+        */
     }
 }
