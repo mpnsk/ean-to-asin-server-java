@@ -7,5 +7,5 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class ItemLookupResponse {
 
     @XmlElement(name = "Items")
-    Items items;
+    public Items items;
 }

@@ -1,11 +1,14 @@
 package com.paunoski.eantoasinserverjava.xml;
 
 import javax.xml.bind.annotation.XmlElement;
+import java.util.List;
 
 public class ItemAttributes {
     @XmlElement(name = "Title")
-    String title;
+    public String title;
     @XmlElement(name = "ProductGroup")
-    String productGroup;
+    public String productGroup;
+    @XmlElement(name = "Feature")
+    public List<String> featureList;
 
 }
