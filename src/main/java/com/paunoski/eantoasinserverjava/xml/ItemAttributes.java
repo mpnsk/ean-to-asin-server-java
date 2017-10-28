@@ -4,6 +4,8 @@ import javax.xml.bind.annotation.XmlElement;
 import java.util.List;
 
 public class ItemAttributes {
+    @XmlElement(name = "EAN")
+    public String ean;
     @XmlElement(name = "Title")
     public String title;
     @XmlElement(name = "ProductGroup")

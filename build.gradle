@@ -4,6 +4,8 @@ buildscript {
     }
     repositories {
         mavenCentral()
+        maven { url "https://repo.spring.io/snapshot" }
+        maven { url "https://repo.spring.io/milestone" }
     }
     dependencies {
         classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
@@ -13,6 +15,7 @@ buildscript {
 apply plugin: 'java'
 apply plugin: 'eclipse'
 apply plugin: 'org.springframework.boot'
+apply plugin: 'io.spring.dependency-management'
 
 group = 'com.paunoski'
 version = '0.0.1-SNAPSHOT'
@@ -20,13 +23,24 @@ sourceCompatibility = 1.8
 
 repositories {
     mavenCentral()
+    maven { url "https://repo.spring.io/snapshot" }
+    maven { url "https://repo.spring.io/milestone" }
 }
 
 
 dependencies {
-    compile('org.springframework.boot:spring-boot-starter')
+    compile('org.springframework.boot:spring-boot-starter-data-jpa')
+    compile('org.springframework.boot:spring-boot-starter-data-rest')
     compile('org.springframework.boot:spring-boot-starter-web')
+    runtime('org.springframework.boot:spring-boot-devtools')
+
+    compile('org.springframework.data:spring-data-rest-webmvc')
     compile('org.json:json:20171018')
     compile('com.google.code.gson:gson:2.8.2')
+    compileOnly('org.projectlombok:lombok')
+    compile 'org.springframework.data:spring-data-rest-webmvc'
+
+    compile 'com.h2database:h2'
+
     testCompile('org.springframework.boot:spring-boot-starter-test')
 }
