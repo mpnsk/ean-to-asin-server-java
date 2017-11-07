@@ -1,15 +1,21 @@
 package com.paunoski.eantoasinserverjava;
 
+import com.amazon.JavaCodeSnippet;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.paunoski.eantoasinserverjava.persistence.Article;
 import com.paunoski.eantoasinserverjava.persistence.EanRepository;
 import com.paunoski.eantoasinserverjava.xml.ItemLookupResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.Writer;
 import java.net.URI;
+import java.sql.Timestamp;
 import java.util.List;
 
 @RestController
@@ -61,7 +67,6 @@ public class ExposedController {
     @GetMapping("/add")
     public Article addArticle(String ean) {
         Article article = getArticle(ean);
-        article.addToQunatity(1);
         System.out.println(article);
         repository.save(article);
         return article;
@@ -70,22 +75,34 @@ public class ExposedController {
 
     private Article getItemLookupResponse(String ean) {
         List<Article> byEan = repository.findByEan(ean);
+        Article article;
         if (!byEan.isEmpty()) {
-            Article article = byEan.get(0);
-            return article;
+            article = byEan.get(0);
         } else {
             URI url = URI.create(javaCodeSnippet.getUrl(ean));
             ItemLookupResponse response = restTemplate.getForObject(url, ItemLookupResponse.class);
-            Article article = new Article();
+            article = new Article();
             article.setEan(response.items.item.itemAttributes.ean);
             article.setAsin(response.items.item.asin);
             article.setTitle(response.items.item.itemAttributes.title);
             article.setFeatures(response.items.item.itemAttributes.featureList);
             article.setProductGroup(response.items.item.itemAttributes.productGroup);
-            repository.save(article);
-            return article;
+        }
+        article.addToQunatity(1);
+        repository.save(article);
+        saveToFile(article);
+        return article;
+
+    }
+
+    private void saveToFile(Article article) {
+        String string = new Timestamp(System.currentTimeMillis()).toString();
+        try (Writer writer = new FileWriter("data/"+article.getEan()+"@"+string )) {
+            Gson gson = new GsonBuilder().create();
+            gson.toJson(article, writer);
+        } catch (IOException e) {
+            e.printStackTrace();
         }
 
     }
-//        String url = javaCodeSnippet.getUrl("3010006699976");
 }

@@ -35,10 +35,8 @@ dependencies {
     runtime('org.springframework.boot:spring-boot-devtools')
 
     compile('org.springframework.data:spring-data-rest-webmvc')
-    compile('org.json:json:20171018')
     compile('com.google.code.gson:gson:2.8.2')
     compileOnly('org.projectlombok:lombok')
-    compile 'org.springframework.data:spring-data-rest-webmvc'
 
     compile 'com.h2database:h2'
 

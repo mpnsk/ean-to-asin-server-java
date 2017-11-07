@@ -1,4 +1,4 @@
-package com.paunoski.eantoasinserverjava;
+package com.amazon;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -39,7 +39,7 @@ public class JavaCodeSnippet {
     @Value("${amazon-associate-tag}")
     private String ASSOCIATE_TAG;
 
-    String getUrl(String ean) {
+    public String getUrl(String ean) {
         /*
          * Set up the signed requests helper.
          */
@@ -52,7 +52,7 @@ public class JavaCodeSnippet {
             return null;
         }
 
-        String requestUrl = null;
+        String requestUrl;
 
         Map<String, String> params = new HashMap<>();
 

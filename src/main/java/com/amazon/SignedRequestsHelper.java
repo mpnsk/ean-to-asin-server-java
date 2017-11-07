@@ -19,7 +19,7 @@
  *
  */
 
-package com.paunoski.eantoasinserverjava;
+package com.amazon;
 
 import org.apache.tomcat.util.codec.binary.Base64;
 
