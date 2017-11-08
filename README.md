@@ -5,4 +5,4 @@ But EAN databases are either expensive or incomplete.
 
 With an [Amazon Associate Account](https://affiliate-program.amazon.com/) (free if you you have a website that advertises products for Amazon) you can access the [Amazon Product Advertising API](http://docs.aws.amazon.com/AWSECommerceService/latest/DG/Welcome.html) and get at least a title and a description to kickstart your own database!
 
-So basically that is a Spring REST example on how to use Amazons API
+So basically this is a Spring REST example on how to use Amazons API
